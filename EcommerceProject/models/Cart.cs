@@ -8,8 +8,7 @@ namespace EcommerceProject.models
     {
         [Key]
         public int id { get; set; }
-        
-        public int Quantity { get; set; }
+
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }

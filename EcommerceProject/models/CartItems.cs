@@ -6,7 +6,12 @@ namespace EcommerceProject.models
     {
         [ForeignKey("Cart")]
         public int CartId { get; set; }
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public virtual Cart Cart { get; set; }
+        [ForeignKey("product")]
+        public int productID { get; set; }
+        public Product product { get; set; }
+        public int Quantity { get; set; }
+
+
     }
 }

@@ -7,6 +7,7 @@ namespace EcommerceProject.models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public byte[] image { get; set; }
         public string Description { get; set; }
         [ForeignKey("Brand")]
         public int? BrandID { get; set; }

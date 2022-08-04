@@ -9,6 +9,7 @@ namespace EcommerceProject.models
     {
         [Key]
         public int Id { get; set; }
+        public int? TotalPrice { get; set; }
         public DateTime date { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
