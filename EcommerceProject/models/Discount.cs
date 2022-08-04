@@ -7,7 +7,8 @@ namespace EcommerceProject.models
     {
         public int Id { get; set; }
 
-        public decimal DiscountValue { get; set; }
-        public virtual List<Product> Products { get; set; }
+        public float DiscountValue { get; set; }
+        public virtual ICollection<Product> Products { get; set; } 
+            = new HashSet<Product>(); 
     }
 }

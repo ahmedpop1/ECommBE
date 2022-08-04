@@ -12,7 +12,10 @@ namespace EcommerceProject.models
         [Phone]
         public string PhoneNumber { get; set; }
         [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
+        [ForeignKey("Admin")]
+        public int? AdminID { get; set; }
+        public virtual Admin Admin { get; set; }
     }
 }

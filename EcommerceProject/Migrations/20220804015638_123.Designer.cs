@@ -4,14 +4,16 @@ using EcommerceProject.models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcommerceProject.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20220804015638_123")]
+    partial class _123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,16 +35,13 @@ namespace EcommerceProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<byte[]>("image")
-                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL");
 
                     b.ToTable("Admins");
                 });
@@ -54,8 +53,8 @@ namespace EcommerceProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BName")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -95,12 +94,7 @@ namespace EcommerceProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Carts");
                 });
@@ -130,8 +124,8 @@ namespace EcommerceProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CatName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CatName")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -146,28 +140,19 @@ namespace EcommerceProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("cartID")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("image")
-                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
-                        .IsUnique();
-
-                    b.HasIndex("cartID");
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL");
 
                     b.ToTable("Customers");
                 });
@@ -179,8 +164,8 @@ namespace EcommerceProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("DiscountValue")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DiscountValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -256,9 +241,6 @@ namespace EcommerceProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("image")
-                        .HasColumnType("varbinary(max)");
-
                     b.HasKey("ID");
 
                     b.HasIndex("BrandID");
@@ -300,9 +282,7 @@ namespace EcommerceProject.Migrations
                 {
                     b.HasOne("EcommerceProject.models.Registeration", "Registeration")
                         .WithOne()
-                        .HasForeignKey("EcommerceProject.models.Admin", "UserName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EcommerceProject.models.Admin", "UserName");
 
                     b.Navigation("Registeration");
                 });
@@ -318,17 +298,6 @@ namespace EcommerceProject.Migrations
                         .HasForeignKey("CustomerId");
 
                     b.Navigation("Admin");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("EcommerceProject.models.Cart", b =>
-                {
-                    b.HasOne("EcommerceProject.models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Customer");
                 });
@@ -356,15 +325,7 @@ namespace EcommerceProject.Migrations
                 {
                     b.HasOne("EcommerceProject.models.Registeration", "Registeration")
                         .WithOne()
-                        .HasForeignKey("EcommerceProject.models.Customer", "UserName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EcommerceProject.models.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("cartID");
-
-                    b.Navigation("Cart");
+                        .HasForeignKey("EcommerceProject.models.Customer", "UserName");
 
                     b.Navigation("Registeration");
                 });
